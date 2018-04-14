@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{= it.url}}</title>
+    <style>
+        th {
+            text-align: left;
+        }
+        .container{
+            width: 80%;
+            margin: auto;
+        }
+        .container table {
+            width: 100%;
+        }
+        .text-right {
+            text-align: right;
+        }
+    </style>
+    <body>
+        <div class="container">
+            <h3>Index of: {{= it.url}}</h3>
+            
+            <div>
+                <table>
+                    <thead>
+                        <th> Name </th>
+                        <th> Last Modified </th>
+                        <th class="text-right"> Size </th>
+                    </thead>
+                    <tbody>
+                   {{? it.url !== '/' }}
+                        <tr>
+                            <td>
+                                <a href="{{= it.url.split('/').slice(0, -1).join('/') || '/'}}">
+                                    ..
+                                </a>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                   {{? }}
+
+                   {{~ it.files :file}}
+                        <tr>
+                            <td>
+                                <a href={{= it.url.replace(/\/+$/, '')}}/{{= file.name}}>
+                                    {{= file.name}}
+                                </a>
+                            </td>
+                            <td>{{= file.modified}} </td>
+                            <td class="text-right">{{= file.size}}</td>
+                        </tr>
+                   {{~ }}
+                    </tbody>
+                 </table>
+            </div>
+    </body>
+</html>
